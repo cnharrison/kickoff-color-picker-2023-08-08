@@ -6,8 +6,8 @@ const labelStyle = { marginRight: 5, fontWeight: 500 };
 function ColorPicker() {
   const [RGBcolor, setRGBColor] = useState({ r: 0, g: 0, b: 0 });
 
-  const setRGBValue = (key, value) => {
-    setRGBColor({ ...RGBcolor, [key]: value });
+  const setRGBValue = (RGBkey, RGBvalue) => {
+    setRGBColor({ ...RGBcolor, [RGBkey]: RGBvalue });
   };
 
   useEffect(() => {
@@ -18,13 +18,13 @@ function ColorPicker() {
     });
   }, []);
 
-  const getSliderLabelsStyle = (key, value) => ({
+  const getSliderLabelsStyle = (RGBkey, RGBvalue) => ({
     display: "flex",
     alignItems: "center",
     color: `rgb(
-                ${key === "r" ? value : 0}, 
-                ${key === "g" ? value : 0}, 
-                ${key === "b" ? value : 0}
+                ${RGBkey === "r" ? RGBvalue : 0}, 
+                ${RGBkey === "g" ? RGBvalue : 0}, 
+                ${RGBkey === "b" ? RGBvalue : 0}
             )`,
   });
 
