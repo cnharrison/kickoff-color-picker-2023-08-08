@@ -1,24 +1,24 @@
 const labelStyle = { marginRight: 5, fontWeight: 500 };
 
 function ColorPicker({
-  RGBcolor,
-  setRGBValue,
+  rgbColor,
+  setRgbValue,
   isEmpty,
   isEmptyAndBlurred,
   setIsEmptyAndBlurred,
   index,
 }) {
-  const getSliderLabelsStyle = (RGBkey, RGBvalue) => ({
+  const getSliderLabelsStyle = (rgbKey, rgbValue) => ({
     display: "flex",
     alignItems: "center",
     color: `rgb(
-                ${RGBkey === "r" ? RGBvalue : 0}, 
-                ${RGBkey === "g" ? RGBvalue : 0}, 
-                ${RGBkey === "b" ? RGBvalue : 0}
+                ${rgbKey === "r" ? rgbValue : 0}, 
+                ${rgbKey === "g" ? rgbValue : 0}, 
+                ${rgbKey === "b" ? rgbValue : 0}
             )`,
   });
 
-  const RGBcolorToUse = isEmpty ? { r: 0, g: 0, b: 0 } : RGBcolor;
+  const rgbColorToUse = isEmpty ? { r: 0, g: 0, b: 0 } : rgbColor;
 
   return (
     <>
@@ -39,9 +39,9 @@ function ColorPicker({
       >
         <div
           style={{
-            backgroundColor: `rgb(${RGBcolorToUse.r ?? 0}, 
-                                  ${RGBcolorToUse.g ?? 0}, 
-                                  ${RGBcolorToUse.b ?? 0})
+            backgroundColor: `rgb(${rgbColorToUse.r ?? 0}, 
+                                  ${rgbColorToUse.g ?? 0}, 
+                                  ${rgbColorToUse.b ?? 0})
                              `,
             width: 140,
             height: 140,
@@ -52,38 +52,38 @@ function ColorPicker({
           }}
         ></div>
         <div>
-          <div style={getSliderLabelsStyle("r", RGBcolorToUse.r)}>
+          <div style={getSliderLabelsStyle("r", rgbColorToUse.r)}>
             <label style={labelStyle}>R</label>
             <input
               type="range"
               min="0"
               max="255"
-              value={RGBcolorToUse.r}
-              onChange={(e) => setRGBValue("r", e.target.value, index)}
+              value={rgbColorToUse.r}
+              onChange={(e) => setRgbValue("r", e.target.value, index)}
             />
-            <p>{RGBcolorToUse.r} </p>
+            <p>{rgbColorToUse.r} </p>
           </div>
-          <div style={getSliderLabelsStyle("g", RGBcolorToUse.g)}>
+          <div style={getSliderLabelsStyle("g", rgbColorToUse.g)}>
             <label style={labelStyle}>G</label>
             <input
               type="range"
               min="0"
               max="255"
-              value={RGBcolorToUse.g}
-              onChange={(e) => setRGBValue("g", e.target.value, index)}
+              value={rgbColorToUse.g}
+              onChange={(e) => setRgbValue("g", e.target.value, index)}
             />
-            <p>{RGBcolorToUse.g}</p>
+            <p>{rgbColorToUse.g}</p>
           </div>
-          <div style={getSliderLabelsStyle("b", RGBcolorToUse.b)}>
+          <div style={getSliderLabelsStyle("b", rgbColorToUse.b)}>
             <label style={labelStyle}>B</label>
             <input
               type="range"
               min="0"
               max="255"
-              value={RGBcolorToUse.b}
-              onChange={(e) => setRGBValue("b", e.target.value, index)}
+              value={rgbColorToUse.b}
+              onChange={(e) => setRgbValue("b", e.target.value, index)}
             />
-            <p>{RGBcolorToUse.b}</p>
+            <p>{rgbColorToUse.b}</p>
           </div>
         </div>
       </div>

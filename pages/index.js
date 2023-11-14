@@ -3,10 +3,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ColorPicker from "../components/colorPicker/colorPicker";
 
-const defaultEmptyRGBColorsState = [{}, {}, {}, {}, {}];
+const defaultEmptyrgbColorsState = [{}, {}, {}, {}, {}];
 
 const Home = () => {
-  const [RGBcolors, setRGBColors] = useState(defaultEmptyRGBColorsState);
+  const [rgbColors, setRgbColors] = useState(defaultEmptyrgbColorsState);
   const [isEmptyAndBlurred, setIsEmptyAndBlurred] = useState(true);
   const [paletteIds, setPaletteIds] = useState([]);
   const [selectedPaletteId, setSelectedPaletteId] = useState();
@@ -14,39 +14,15 @@ const Home = () => {
 
   const setRGBValue = useCallback(
     (RGBkey, RGBvalue, index) => {
-      setRGBColors((prevState) =>
+      setRgbColors((prevState) =>
         prevState.map((color, innerIndex) =>
           innerIndex === index ? { ...color, [RGBkey]: RGBvalue } : color,
         ),
       );
       setIsModified(true);
     },
-    [setRGBColors],
+    [setRgbColors],
   );
-
-  const saveRGBValues = async () => {
-    const { status } = await axios.post("/api/palette", {
-      uuid: uuidv4(),
-      colors: RGBcolors,
-    });
-    if (status === 200) {
-      setSelectedPaletteId(uuid);
-      setIsModified(false);
-    } else {
-      throw new Error("Error connecting to server");
-    }
-  };
-
-  const handleSavePalette = async () => {
-    const { status, data } = await axios.put("/api/palette", {
-      uuid: selectedPaletteId ?? uuidv4(),
-      colors: RGBcolors,
-    });
-    if (status === 200) {
-      setSelectedPaletteId(selectedPaletteId ?? data[0].palette_id);
-      setIsModified(false);
-    }
-  };
 
   useEffect(() => {
     const fetchPalette = async () => {
@@ -54,7 +30,7 @@ const Home = () => {
         `/api/palette?palette_id=${selectedPaletteId}`,
       );
       if (status === 200) {
-        setRGBColors(data.map(({ uuid, ...rest }) => rest));
+        setRgbColors(data.map(({ uuid, ...rest }) => rest));
       } else {
         throw new Error("Error connecting to server");
       }
@@ -63,9 +39,9 @@ const Home = () => {
       fetchPalette();
       setIsModified(false);
     } else {
-      setRGBColors(defaultEmptyRGBColorsState);
+      setRgbColors(defaultEmptyrgbColorsState);
     }
-  }, [axios, selectedPaletteId, setRGBColors, setIsModified]);
+  }, [axios, selectedPaletteId, setRgbColors, setIsModified]);
 
   useEffect(() => {
     const fetchPalettes = async () => {
@@ -79,10 +55,34 @@ const Home = () => {
     fetchPalettes();
   }, [axios, setRGBValue, selectedPaletteId]);
 
+  const saveRGBValues = async () => {
+    const { status } = await axios.post("/api/palette", {
+      uuid: uuidv4(),
+      colors: rgbColors,
+    });
+    if (status === 200) {
+      setSelectedPaletteId(uuid);
+      setIsModified(false);
+    } else {
+      throw new Error("Error connecting to server");
+    }
+  };
+
+  const handleSavePalette = async () => {
+    const { status, data } = await axios.put("/api/palette", {
+      uuid: selectedPaletteId ?? uuidv4(),
+      colors: rgbColors,
+    });
+    if (status === 200) {
+      setSelectedPaletteId(selectedPaletteId ?? data[0].palette_id);
+      setIsModified(false);
+    }
+  };
+
   const isEmpty = useMemo(
     () =>
-      RGBcolors.map((color) => Object.keys(color).length === 0).every(Boolean),
-    [RGBcolors],
+      rgbColors.map((color) => Object.keys(color).length === 0).every(Boolean),
+    [rgbColors],
   );
 
   const handlePaletteIdChange = (event) => {
@@ -108,11 +108,11 @@ const Home = () => {
         <p>No saved palletes found. Click anywhere below to add one.</p>
       )}
 
-      {RGBcolors.map((color, index) => (
+      {rgbColors.map((color, index) => (
         <ColorPicker
-          RGBcolor={color}
-          setRGBValue={setRGBValue}
-          saveRGBValues={saveRGBValues}
+          rgbColor={color}
+          setRgbValue={setRGBValue}
+          saveRgbValues={saveRGBValues}
           isEmpty={isEmpty}
           isEmptyAndBlurred={isEmptyAndBlurred}
           setIsEmptyAndBlurred={setIsEmptyAndBlurred}
