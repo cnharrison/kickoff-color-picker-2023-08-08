@@ -22,3 +22,7 @@ Persist palettes to the database.
 5. Enable editing of palettes. ✅
 
 Didn't have time to enable deleting unfortunately, although its pretty trivial/straightforward. Sacrificed that on the altar of time becaused it seemed like the less fun/most useless feature 😄
+
+
+https://github.com/cnharrison/kickoff-color-picker-2023-08-08/assets/4341988/6105046e-ff7c-4428-9720-3e7d27bd9d66
+
